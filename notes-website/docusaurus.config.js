@@ -3,7 +3,7 @@ module.exports = {
   tagline:
     "All my learnings are stored in this website checkout Explore Books section for more",
   url: "https://savithagollamudi.github.io",
-  baseUrl: "/",
+  baseUrl: "/notebook/",
   favicon: "img/favicon.ico",
   organizationName: "savithagollamudi", // Usually your GitHub org/user name.
   projectName: "notebook", // Usually your repo name.

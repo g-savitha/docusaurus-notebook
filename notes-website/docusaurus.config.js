@@ -88,12 +88,14 @@ module.exports = {
           homePageId: "doc1",
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/savithagollamudi/notebook/",
+          editUrl:
+            "https://github.com/savithagollamudi/notebook/tree/master/notes-website",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: "https://github.com/savithagollamudi/notebook/blog/",
+          editUrl:
+            "https://github.com/savithagollamudi/notebook/tree/master/notes-website/blog/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),

@@ -9,7 +9,7 @@ module.exports = {
     "Advanced Functions": ["js9"],
     "Misc. JS Features": ["js10"],
     "Object Methods and 'This' keyword": ["js11"],
-    "DOM Manipulation": ["js12"],
+    "DOM Manipulation": ["js12", "js18"],
     "Communication With Events": ["js13"],
     "Asynchronous code, callbacks and promises": ["js14"],
     "Making HTTP Requests": ["js15"],

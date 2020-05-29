@@ -1,3 +1,6 @@
+const remarkImages = require("remark-images");
+const rehypeTruncate = require("rehype-truncate");
+
 module.exports = {
   title: "Notebook",
   tagline:
@@ -90,6 +93,8 @@ module.exports = {
           // Please change this to your repo.
           editUrl:
             "https://github.com/savithagollamudi/notebook/tree/master/notes-website/",
+          remarkPlugins: [remarkImages],
+          rehypePlugins: [rehypeTruncate],
         },
         blog: {
           showReadingTime: true,

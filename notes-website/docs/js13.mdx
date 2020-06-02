@@ -224,7 +224,7 @@ username.addEventListener("keydown", function (e) {
 });
 ```
 
-### Keyup
+### keyup
 
 A key has been released.
 
@@ -361,4 +361,89 @@ We can put preventDefault() at the top of the function, it still works the same
 
 ---
 
-## input and changeEvents
+## input and change Events
+
+### input
+
+This event is triggered whenever an input changes .We can actually listen to all 3 above inputs(textbox, checkbox and select) at once using a single event type.
+
+Our goal is to create a datastructure which automatically updates whenever a user enters value in input, instead of waitiing for user to submit(like from the above section)
+
+```javascript
+creditCardInput.addEventListener("input", (e) => {
+  console.log("CC Changed", e); // the event is triggered whenever we type something in the input box
+});
+```
+
+Storing value to an object as soon as user changes the input. These events trigger before user clicks submit.
+
+```javascript
+const formData = {};
+creditCardInput.addEventListener("input", (e) => {
+  console.log("CC Changed", e);
+  //formData['cc'] = creditCardInput.value; -> hard coding. instead use event object properties to get value
+  formData["cc"] = e.target.value;
+});
+veggiesSelect.addEventListener("input", (e) => {
+  console.log("veggie change", e);
+  formData["veggie"] = e.target.value;
+});
+termszcheckBox.addEventListener("input", (e) => {
+  console.log("terms changed", e);
+  formData["terms"] = e.target.checked;
+});
+```
+
+Refactor the above code.
+add a `name` attribute to each html input
+
+```html
+<input type="text" placeholder="credit card" id="cc" name="creditcard" />
+<label>
+  I agree to T&C
+  <input type="checkbox" id="terms" name="agreeToterms" />
+</label>
+<select id="veggies" name="selectedVeggie">
+  <option value="brinjal">Brinjal</option>
+  <option value="tomato">Tomato</option>
+  <option value="onion">Onion</option>
+</select>
+```
+
+```javascript
+for (let input of [creditCardInput, termszcheckBox, veggiesSelect]) {
+  input.addEventListener("input", (e) => {
+    if (e.target.type === "checkbox")
+      formData[e.target.name] = e.target.checked;
+    else formData[e.target.name] = e.target.value;
+  });
+}
+// more sophisticated code
+for (let input of [creditCardInput, termszcheckBox, veggiesSelect]) {
+  input.addEventListener("input", ({ target }) => {
+    // destructure event object since we only use target
+    // destructure more coz we use only these 4 properties in target
+    const [name, type, value, checked] = target;
+    formData[name] = type === "checkbox" ? checked : value;
+  });
+}
+```
+
+We can add multiple events under single event listener as long as we have `name` attribute.
+
+### change
+
+if we change the above event type to change it will still behave the same except for the textbox. Textbox input change wont trigger until we lose focus over it or press return key after entering complete data or focus it, unlike input where it triggers event for every single key typed(every single letter changed in text box).
+
+```javascript
+for (let input of [creditCardInput, termszcheckBox, veggiesSelect]) {
+  input.addEventListener("change", ({ target }) => {
+    // destructure event object since we only use target
+    // destructure more coz we use only these 4 properties in target
+    const [name, type, value, checked] = target;
+    formData[name] = type === "checkbox" ? checked : value;
+  });
+}
+```
+
+This type of pattern (using name attribute) is pretty common especially if we get to something like **react** and some of the other frameworks or libraries out there. We use **name of an input as a key to store the value from that input** under, to create a nice object that contains all of our form data at once.

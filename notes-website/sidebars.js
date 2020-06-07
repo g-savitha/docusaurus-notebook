@@ -11,7 +11,7 @@ module.exports = {
     "Object Methods and 'This' keyword": ["js11"],
     "DOM Manipulation": ["js12", "js18"],
     "Communication With Events": ["js13"],
-    "Asynchronous code, callbacks and promises": ["js14"],
+    "Asynchronous code, callbacks and promises": ["js14", "js19", "js20"],
     "Making HTTP Requests": ["js15"],
     "Async & Await": ["js16"],
     "Prototypes, classes & The New operator": ["js17"],

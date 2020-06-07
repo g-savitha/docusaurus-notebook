@@ -18,12 +18,12 @@ module.exports = {
         src: "img/favicon.ico",
       },
       links: [
-        {
-          to: "docs/js1",
-          activeBasePath: "docs",
-          label: "Docs",
-          position: "left",
-        },
+        // {
+        //   to: "docs/js1",
+        //   activeBasePath: "docs",
+        //   label: "Docs",
+        //   position: "left",
+        // },
         { to: "blog", label: "Explore Books", position: "right" },
         {
           href: "https://github.com/savithagollamudi",

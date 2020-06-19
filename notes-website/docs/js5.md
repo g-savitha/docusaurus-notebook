@@ -170,8 +170,111 @@ Pass by value is only for **Primitive types** (Boolean, null, undefined, String,
 let fruit = "orange"; //orange
 let color = fruit; //orange
 //here value of fruit is copied into color (pass by value)
+
+let x = 10;
+let y = "abc";
+let z = null;
+let a = x;
+let b = y;
+x = 5;
+y = "def";
 ```
+
+| Var | Val           |
+| --- | ------------- |
+| x   | <s>10</s> 5   |
+| y   | <s>abc</s>def |
+| z   | null          |
+| a   | 10            |
+| b   | abc           |
 
 ### Pass by reference
 
 Arrays, functions, objects
+
+Points to object's location in memory.
+
+```javascript
+arr = []; // created an array in memory
+var arr = [];
+arr.push(1);
+```
+
+| var | val    | address | obj |
+| --- | ------ | ------- | --- |
+| arr | <#001> | #001    | []  |
+| arr | <#001> | #001    | [1] |
+
+When we use `arr` to do something, JS Engine goes to the location of arr in memory and works with info stored there.
+
+```javascript
+var ref = [1];
+var copy = ref;
+ref.push(2);
+copy; //[1,2]
+
+//both ref and copy point to same object
+```
+
+| var  | val    | address | obj   |
+| ---- | ------ | ------- | ----- |
+| ref  | <#001> | #001    | [1]   |
+| copy | <#001> | #001    | [1]   |
+| ref  | <#001> | #001    | [1,2] |
+| copy | <#001> | #001    | [1,2] |
+
+Objects are copied by reference instead of value
+
+```javascript
+var obj = { 1: "first" };
+obj = { "2": "second" }; // since reference is changed, 1st object is eligible for GC
+```
+
+```javascript
+var ref1 = ["hi"]; //#001
+var ref2 = ref1; //#001
+ref1 === ref2; //true
+
+var ref1 = ["hi"]; //#001
+var ref2 = ["hi"]; //#002
+ref1 === ref2; //false
+```
+
+:::note
+When we pass primitives into fn, it is considered as passed by value & values are copied.
+(Pass by ref will be explored more while learning pure fns and scope concept)
+:::
+
+---
+
+## Using const with Arrays
+
+:::caution
+**often use const with arrays**, because values inside arrays can change as long as reference remains same
+:::
+
+```javascript
+const eggs = ["brown", "brown"];
+eggs.push("purple");
+eggs[0] = "green"; // we can do this
+//Output:
+//["green", "brown", "purple"]
+
+eggs = ["blue", "pink"]; //Uncaught TypeError: Assignment to constant variable.
+//we cant do this because we are changing the reference.
+```
+
+---
+
+## Nested arrays
+
+```javascript
+const colors = [
+  ["red", "crimson"],
+  ["orange", "dark orange"],
+  ["green", "olive"],
+];
+colors[2][0]; //green
+colors[2][1]; //olive
+colors[0][0]; //red
+```

@@ -6,7 +6,7 @@ module.exports = {
     "Objects ": ["js6"],
     "Loops ": ["js7"],
     "Functions ": ["js8"],
-    "Advanced Functions": ["js9"],
+    "Apply functions to collections of data": ["js9"],
     "Misc. JS Features": ["js10"],
     "Object Methods and 'This' keyword": ["js11"],
     "DOM Manipulation": ["js12", "js18"],

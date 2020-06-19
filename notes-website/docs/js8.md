@@ -4,4 +4,66 @@ title: Functions
 sidebar_label: Functions
 ---
 
-You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
+## Intro to functions
+
+Functions are reusable procedures
+
+2 step process -> define a fn, run a fn.
+
+```javascript
+//define
+function fn() {
+  //do something
+}
+//run
+fn();
+```
+
+**Function arguments are input to functions.**
+
+```javascript
+//single arg
+function sqr(num) {
+  console.log(num * num);
+}
+sqr(4);
+//multiple args
+function sum(x, y) {
+  console.log(x + y);
+}
+sum(4, 5);
+
+function divide(a, b) {
+  console.log(a / b);
+}
+divide(1, 4); //0.25
+divide(4, 1); //4
+divide("s", 4); //NaN
+divide(5); // 5/undefined -> NaN
+```
+
+:::note
+If there is a missing arg, JS takes undefined as input.
+:::
+
+**Return** :
+
+Captures a value from fn. we can only return one value. if u want to return more than one value, use arr or string.
+
+```javascript
+function add(x, y) {
+  return [x, y];
+  // or
+  return `${x} , ${y}`;
+}
+```
+
+---
+
+## Scope
+
+1. Function scope
+2. Block Scope
+3. Lexical Scope
+
+### Function Scope

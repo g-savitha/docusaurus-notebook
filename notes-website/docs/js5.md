@@ -1,10 +1,8 @@
 ---
 id: js5
-title: Arrays
+title: Capture collections of Data with Arrays
 sidebar_label: Arrays
 ---
-
-# Capture collections of Data with Arrays
 
 ## Arrays creation
 

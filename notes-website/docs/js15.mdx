@@ -175,7 +175,7 @@ ReadableStream is a stream of "byte data". This is one of the key differences fr
 
 :::note
 Source: MDN
-The ReadableStream interface of the Streams API represents a readable stream of byte data. The Fetch API offers a concrete instance of a ReadableStream through the body property of a Response object.
+The ReadableStream interface of the Streams API represents a **readable stream of byte data**. The Fetch API offers a concrete instance of a ReadableStream through the body property of a Response object.
 
 Refer [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/Body/body)
 :::
@@ -183,6 +183,8 @@ Refer [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/Body/bod
 #### Body.json():
 
 The json() method of the Body mixin takes a Response stream and reads it to completion. It returns a promise that resolves with the result of parsing the body text as JSON.
+
+RT: A Promise that resolves to a JavaScript object. This object could be anything that can be represented by JSON — an object, an array, a string, a number...
 
 syntax :
 
@@ -192,7 +194,7 @@ response.json().then((data) => {
 }); //RT: Promise
 ```
 
-Since response.json() returns a promise, use .then or .catch to resolve or reject the promise
+Since response.json() returns a promise, use .then or .catch to resolve or reject the promise. (response.json() is async method, it will take a while to load)
 
 ```javascript
 fetch("https://swapi.dev/api/planets").then((response) => {
@@ -269,3 +271,217 @@ error:
 This is caught in promise
 
 `VM122:1 GET https://swapi.dev/api/planetssakdjhskj net::ERR_INTERNET_DISCONNECTED`
+
+Before we try and read json, lets make sure we will proceed if only our status code is 200.
+
+```javascript
+//1st way
+fetch("https://swapi.dev/api/planets")
+  .then((response) => {
+    if (!response.ok) {
+      console.log("Error: Status is not 200", response.status);
+    } else {
+      response.json().then((data) => {
+        for (let planet of data.results) {
+          console.log(planet.name);
+        }
+      });
+    }
+  })
+  .catch((error) => {
+    console.log("Something went wrong", error);
+  });
+
+//2nd way
+//we can also throw an error in .then()
+
+fetch("https://swapi.dev/api/planets")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`status code error :${response.status}`);
+    } else {
+      response.json().then((data) => {
+        for (let planet of data.results) {
+          console.log(planet.name);
+        }
+      });
+    }
+  })
+  .catch((error) => {
+    console.log("Something went wrong", error);
+  });
+```
+
+### Chaining Fetch requests
+
+We can chain the fetch requests one after the other and avoid the messy callback situation previously we had using XHR.
+
+```javascript
+fetch("https://swapi.dev/api/planets")
+  .then((response) => {
+    if (!response.ok) throw new Error(`status code error :${response.status}`);
+    //instead of nesting .then inside another .then
+    //  return a promise which is returned from response.json() and chain another.then to it
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Fetched all planets(first 10)");
+    const filmURL = data.results[0].films[0];
+    return fetch(filmURL);
+  })
+  .then((response) => {
+    if (!response.ok) throw new Error(`status code error :${response.status}`);
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Fetched first film based off of first planet");
+    console.log(data.title);
+  })
+  .catch((error) => {
+    console.log("Something went wrong", error);
+  });
+
+// Output:
+// A new hope
+```
+
+### Refactoring fetch Chains
+
+```javascript
+const checkStatusAndParse = (response) => {
+  if (!response.ok) throw new Error(`status code error :${response.status}`);
+  return response.json();
+};
+const printPlanets = (data) => {
+  console.log("Loaded 10 more planets...");
+  for (let planet of data.results) {
+    console.log(planet.name);
+  }
+  //two ways to resolve a promise
+  //1st way
+  return new Promise((resolve, reject) => {
+    // resolve with data, because next .then requires the data
+    resolve(data);
+  });
+  //2nd way ->  Promise.resolve() we dont need to go through the clunky syntax
+  return Promise.resolve(data);
+};
+fetch("https://swapi.dev/api/planets")
+  .then(checkStatusAndParse)
+  .then(printPlanets) //next .then throws an error because we are not returning any promise from printPlanets
+  //promise chaining works only when a promise is returned from previous .then
+  .then((data) => {
+    const nextURL = data.next;
+    return fetch(nextURL);
+  })
+  .then(checkStatusAndParse)
+  .then(printPlanets)
+  .catch((error) => {
+    console.log("Something went wrong", error);
+  });
+```
+
+Final code..
+
+```javascript
+const checkStatusAndParse = (response) => {
+  if (!response.ok) throw new Error(`status code error :${response.status}`);
+  return response.json();
+};
+const printPlanets = (data) => {
+  console.log("Loaded 10 more planets...");
+  for (let planet of data.results) {
+    console.log(planet.name);
+  }
+  return Promise.resolve(data.next); // coz next .then() expects a url
+};
+//or we can give a url parameter  a default  url and from next time onwards it will pick a data.next
+const fetchMorePlanets = (url = "https://swapi.dev/api/planets") => {
+  return fetch(url);
+};
+
+fetchMorePlanets()
+  .then(checkStatusAndParse)
+  .then(printPlanets)
+  .then(fetchMorePlanets)
+  .then(checkStatusAndParse)
+  .then(printPlanets)
+  .catch((error) => {
+    console.log("Something went wrong", error);
+  });
+```
+
+---
+
+## Even Better way : AXIOS
+
+### Intro
+
+**A library for making HTTP requests**. This is not an inbuilt option.
+
+> [Official repo](https://github.com/axios/axios)
+
+Behind the scenes, axios uses fetch internally. One nice thing about axios is we can use it on both client side(browser) and server side(node.js), which is not true with many other libraries.
+
+Main advantage of axios over fetch is, data is already parsed to javascript for us and status code validity is done, we dont need to parse it externally using response.json()
+
+```javascript
+axios.get("https://swapi.dev/api/planets").then((res) => {
+  console.log(res.data);
+});
+
+// Output:
+// {count: 60, next: "http://swapi.dev/api/planets/?page=2", previous: null, results: Array(10)}
+// count: 60
+// next: "http://swapi.dev/api/planets/?page=2"
+// previous: null
+// results: (10) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+// __proto__: Object
+```
+
+```javascript
+axios
+  .get("https://swapi.dev/api/planetssdsd")
+  .then((res) => {
+    console.log(res.data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+//output
+// spread.js:25 GET https://swapi.dev/api/planetssdsd 404
+// (anonymous) @ spread.js:25
+// e.exports @ spread.js:25
+// e.exports @ spread.js:25
+// Promise.then (async)
+// r.request @ spread.js:25
+// r.<computed> @ spread.js:25
+// (anonymous) @ spread.js:25
+// (anonymous) @ app.js:49
+// app.js:54 Error: Request failed with status code 404
+//     at e.exports (spread.js:25)
+//     at e.exports (spread.js:25)
+//     at XMLHttpRequest.l.onreadystatechange (spread.js:25)
+```
+
+### Sequential Axios Requests
+
+```javascript
+const fetchNextPlanet = (url = "https://swapi.dev/api/planets") => {
+  return axios.get(url);
+};
+const printPlanets = ({ data }) => {
+  for (let planet of data.results) {
+    console.log(planet.name);
+  }
+  return Promise.resolve(data.next);
+};
+fetchNextPlanet()
+  .then(printPlanets)
+  .then(fetchNextPlanet)
+  .then(printPlanets)
+  .catch((err) => {
+    console.log(err);
+  });
+```

@@ -67,3 +67,6 @@ function add(x, y) {
 3. Lexical Scope
 
 ### Function Scope
+
+```javascript
+```

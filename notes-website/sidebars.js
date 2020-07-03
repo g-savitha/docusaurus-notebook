@@ -11,7 +11,7 @@ module.exports = {
     "Loops ": ["jsbootcamp/js7"],
     "Functions ": ["jsbootcamp/js8"],
     "Apply functions to collections of data": ["jsbootcamp/js9"],
-    "Misc. jsbootcamp/js Features": ["jsbootcamp/js10"],
+    "Misc. JS Features": ["jsbootcamp/js10"],
     "Object Methods and 'This' keyword": ["jsbootcamp/js11"],
     "DOM Manipulation": ["jsbootcamp/js12", "jsbootcamp/js18"],
     "Communication With Events": ["jsbootcamp/js13"],

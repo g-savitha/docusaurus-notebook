@@ -5,10 +5,10 @@ module.exports = {
   title: "Notebook",
   tagline:
     "All my learnings are stored in this website checkout Explore Books section for more",
-  url: "https://savithagollamudi.github.io",
+  url: "https://gsavitha95.github.io",
   baseUrl: "/notebook/",
   favicon: "img/favicon.ico",
-  organizationName: "savithagollamudi", // Usually your GitHub org/user name.
+  organizationName: "gsavitha95", // Usually your GitHub org/user name.
   projectName: "notebook", // Usually your repo name.
   themeConfig: {
     navbar: {
@@ -26,7 +26,7 @@ module.exports = {
         // },
         { to: "blog", label: "Explore Books", position: "right" },
         {
-          href: "https://github.com/savithagollamudi",
+          href: "https://github.com/gsavitha95",
           label: "GitHub",
           position: "right",
         },
@@ -92,7 +92,7 @@ module.exports = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl:
-            "https://github.com/savithagollamudi/notebook/tree/master/notes-website/",
+            "https://github.com/gsavitha95/notebook/tree/master/notes-website/",
           remarkPlugins: [remarkImages],
           rehypePlugins: [rehypeTruncate],
         },
@@ -100,7 +100,7 @@ module.exports = {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            "https://github.com/savithagollamudi/notebook/tree/master/notes-website/blog/",
+            "https://github.com/gsavitha95/notebook/tree/master/notes-website/blog/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),

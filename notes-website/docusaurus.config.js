@@ -17,6 +17,9 @@ module.exports = {
         alt: "My Site Logo",
         src: "img/favicon.ico",
       },
+      prism: {
+        theme: require("prism-react-renderer/themes/dracula"),
+      },
       links: [
         // {
         //   to: "docs/js1",
@@ -34,52 +37,22 @@ module.exports = {
     },
     footer: {
       style: "dark",
-      links: [
-        {
-          title: "Docs",
-          items: [
-            {
-              label: "Style Guide",
-              to: "docs/doc1",
-            },
-            {
-              label: "Docusaurus Official",
-              to: "https://github.com/facebook/docusaurus",
-            },
-          ],
-        },
-        // {
-        //   title: "Community",
-        //   items: [
-        //     {
-        //       label: "Stack Overflow",
-        //       href: "https://stackoverflow.com/questions/tagged/docusaurus",
-        //     },
-        //     {
-        //       label: "Discord",
-        //       href: "https://discordapp.com/invite/docusaurus",
-        //     },
-        //     {
-        //       label: "Twitter",
-        //       href: "https://twitter.com/docusaurus",
-        //     },
-        //   ],
-        // },
-        // {
-        //   title: "More",
-        //   items: [
-        //     {
-        //       label: "Blog",
-        //       to: "blog",
-        //     },
-        //     {
-        //       label: "GitHub",
-        //       href: "https://github.com/facebook/docusaurus",
-        //     },
-        //   ],
-        // },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} Notebook, Inc. Built with Docusaurus.`,
+      // links: [
+      //   {
+      //     title: "Docs",
+      //     items: [
+      //       {
+      //         label: "Style Guide",
+      //         to: "docs/doc1",
+      //       },
+      //       {
+      //         label: "Docusaurus Official",
+      //         to: "https://github.com/facebook/docusaurus",
+      //       },
+      //     ],
+      //   },
+      // ],
+      copyright: `Copyright © ${new Date().getFullYear()}, gsavitha95 @ Notebook, Inc. Built with Docusaurus.`,
     },
   },
   presets: [

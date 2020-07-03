@@ -69,4 +69,43 @@ function add(x, y) {
 ### Function Scope
 
 ```javascript
+//1:
+
+function help() {
+  let msg = "HELP ME!";
+  msg; //HELP ME!
+}
+msg; //error: not defined
+
+//msg is scoped only to help() function
+
+//2:
+
+function lol() {
+  let p = "Tom";
+  const age = 45;
+  var color = "teal";
+}
+
+lol();
+console.log(color); //error: not defined
+console.log(age); //error: not defined
+console.log(p); //error: not defined
+
+//3:
+
+let bird = "sparrow";
+function birdwatch() {
+  let bird = "parrot";
+  console.log(bird); //parrot
+}
+bird; //sparrow
+birdwatch(); //parrot
+//you get an error if both bird variables are under same scope
 ```
+
+:::note
+In function scope, both var and const behave same as let.
+:::
+
+### Block Scope

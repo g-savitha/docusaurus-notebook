@@ -3,12 +3,11 @@ const rehypeTruncate = require("rehype-truncate");
 
 module.exports = {
   title: "Notebook",
-  tagline:
-    "All my learnings are stored in this website checkout Explore Books section for more",
-  url: "https://gsavitha95.github.io",
+  tagline: "My notes live here",
+  url: "https://g-savitha.github.io",
   baseUrl: "/notebook/",
   favicon: "img/favicon.ico",
-  organizationName: "gsavitha95", // Usually your GitHub org/user name.
+  organizationName: "g-savitha", // Usually your GitHub org/user name.
   projectName: "notebook", // Usually your repo name.
   themeConfig: {
     navbar: {
@@ -29,7 +28,7 @@ module.exports = {
         // },
         { to: "blog", label: "Explore Books", position: "right" },
         {
-          href: "https://github.com/gsavitha95",
+          href: "https://github.com/g-savitha",
           label: "GitHub",
           position: "right",
         },
@@ -52,7 +51,7 @@ module.exports = {
       //     ],
       //   },
       // ],
-      copyright: `Copyright © ${new Date().getFullYear()}, gsavitha95 @ Notebook, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()}, gsavitha.in @ Notebook, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -65,7 +64,7 @@ module.exports = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl:
-            "https://github.com/gsavitha95/notebook/tree/master/notes-website/",
+            "https://github.com/g-savitha/notebook/tree/master/notes-website/",
           remarkPlugins: [remarkImages],
           rehypePlugins: [rehypeTruncate],
         },
@@ -73,7 +72,7 @@ module.exports = {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            "https://github.com/gsavitha95/notebook/tree/master/notes-website/blog/",
+            "https://github.com/g-savitha/notebook/tree/master/notes-website/blog/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
